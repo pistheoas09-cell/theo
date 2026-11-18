@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Misi Teknisi Cerdas: Koding dan Kecerdasan Artifisial</title>
+<style>
+:root{--bg:#0F2A3D;--pn:#F5F7FA;--tx:#14212B;--ac:#FFB400;--ok:#14804F;--no:#C43737;--bl:#1F6FB2;--mu:#51606C}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#071822;font-family:"Segoe UI",Verdana,Arial,sans-serif;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+#stage{width:min(100vw,177.78vh);aspect-ratio:16/9;background:var(--bg);color:#fff;position:relative;overflow:hidden;font-size:1em}
+.scr{position:absolute;inset:0;padding:3.2em 4em 2.4em;display:none;flex-direction:column}
+.scr.on{display:flex}
+h1{font-size:3.4em;line-height:1.1;margin-bottom:.3em}h2{font-size:2.1em;margin-bottom:.4em}h3{font-size:1.25em}
+p,li{font-size:1.2em;line-height:1.5}
+.pn{background:var(--pn);color:var(--tx);border-radius:.8em;padding:1.2em 1.6em}
+.btn{font:inherit;font-size:1.2em;font-weight:700;min-height:2.6em;padding:.4em 1.4em;border:0;border-radius:.6em;background:var(--ac);color:#1a1200;cursor:pointer;border-bottom:.15em solid #B37F00}
+.btn:hover{filter:brightness(1.08)}.btn:focus-visible,.opt:focus-visible{outline:.2em solid #fff;outline-offset:.15em}
+.btn.sec{background:#DCE6EE;color:var(--tx);border-bottom-color:#9fb0bf}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:1em;align-items:center}.sp{flex:1}
+.bar{display:flex;align-items:center;gap:1.2em;margin-bottom:1em}
+.hud{background:rgba(255,255,255,.12);border-radius:.6em;padding:.35em .9em;font-size:1.1em;font-weight:700}
+.prog{height:.7em;flex:1;background:rgba(255,255,255,.2);border-radius:1em;overflow:hidden}.prog i{display:block;height:100%;background:var(--ac)}
+#fb{margin-top:.8em;min-height:3.2em;padding:.7em 1em;border-radius:.6em;font-size:1.15em;font-weight:600;display:none}
+#fb.ok{display:block;background:#D5F2E3;color:#0B4D2E}#fb.no{display:block;background:#FADADA;color:#7A1B1B}
+.opt{font:inherit;font-size:1.1em;text-align:left;padding:.6em .9em;border:.15em solid #B8C4CE;border-radius:.6em;background:#fff;color:var(--tx);cursor:pointer;min-height:2.6em}
+.opt.sel{border-color:var(--bl);background:#DCEBF8}.opt.good{border-color:var(--ok);background:#D5F2E3}.opt.bad{border-color:var(--no);background:#FADADA}
+.grid{display:grid;gap:.7em}
+.map{display:grid;grid-template-columns:repeat(5,1fr);gap:1em;margin:.6em 0 1em}
+.lv{background:var(--pn);color:var(--tx);border-radius:.8em;padding:1em;cursor:pointer;border:.2em solid transparent;text-align:left;font:inherit;min-height:11em}
+.lv:disabled{opacity:.5;cursor:not-allowed}.lv.done{border-color:var(--ok)}.lv b{font-size:1.5em;display:block}.lv span{font-size:1.05em}
+code,pre{font-family:Consolas,monospace;background:#1B2B38;color:#E8F1F8;border-radius:.5em;padding:.6em .9em;font-size:1.1em;display:block;line-height:1.5}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1.2em;flex:1;min-height:0}
+.mu{color:var(--mu)}.tag{display:inline-block;background:var(--ac);color:#1a1200;font-weight:700;border-radius:.4em;padding:.1em .6em;font-size:1em}
+.bt{display:inline-block;width:2.2em;height:3em;border:.15em solid #1B2B38;border-radius:.3em .3em .5em .5em;margin:.2em;position:relative;background:#fff;vertical-align:bottom}
+.bt.f::after{content:"";position:absolute;left:0;right:0;bottom:0;height:80%;background:var(--bl)}
+input[type=range]{width:100%;height:2em}
+.fan{font-size:1.6em;font-weight:800}
+</style></head><body>
+<div id="stage">
+
+<section class="scr on" id="home" style="justify-content:center">
+ <div class="row" style="gap:3em;align-items:center">
+  <div style="flex:1.3">
+   <span class="tag">Gim Edukasi • Teknologi Informasi</span>
+   <h1 style="margin-top:.4em">Misi Teknisi Cerdas</h1>
+   <p style="margin-bottom:.4em">Koding dan Kecerdasan Artifisial (KKA)</p>
+   <p style="margin-bottom:1.2em">Selesaikan 5 tiket kerja di Bengkel Digital. Kamu akan menyusun algoritma, memilih tipe data, mengatur percabangan dan perulangan, lalu melatih model AI.</p>
+   <div class="row"><button class="btn" onclick="go('map')">Mulai Misi</button><button class="btn sec" onclick="go('guide')">Panduan</button></div>
+  </div>
+  <div class="pn" style="flex:1"><h3>Pertanyaan pemantik</h3><p style="margin:.4em 0">Bagaimana komputer bisa mengambil keputusan dan belajar mengenali pesan penipuan?</p>
+  <pre style="margin-top:.6em">if pesan mencurigakan:
+    tandai("spam")</pre></div>
+ </div>
+</section>
+
+<section class="scr" id="guide">
+ <h2>Panduan Bermain</h2>
+ <div class="cols">
+  <div class="pn"><h3>Tujuan belajar</h3><ul style="margin:.4em 0 0 1.2em"><li>Menyusun algoritma dengan urutan yang benar.</li><li>Mengenali tipe data pada program.</li><li>Menerapkan percabangan (if) dan perulangan (for).</li><li>Menjelaskan cara AI belajar dari data berlabel.</li></ul></div>
+  <div class="pn"><h3>Aturan main</h3><ul style="margin:.4em 0 0 1.2em"><li>Ada 5 level. Level berikutnya terbuka setelah level sebelumnya selesai.</li><li>Kamu punya 3 nyawa. Jawaban salah mengurangi 1 nyawa.</li><li>Skor level: 100 poin, berkurang 20 untuk setiap kesalahan.</li><li>Level yang sudah selesai boleh dibuka lagi dari peta misi.</li></ul></div>
+ </div>
+ <div class="row" style="margin-top:1em"><button class="btn sec" onclick="go('home')">Kembali</button><span class="sp"></span><button class="btn" onclick="go('map')">Berikutnya</button></div>
+</section>
+
+<section class="scr" id="map">
+ <h2>Peta Misi</h2>
+ <div class="row" style="margin-bottom:.4em"><span class="hud" id="m_s"></span><span class="hud" id="m_l"></span></div>
+ <div class="map" id="mapg"></div>
+ <p>Pilih level yang terbuka untuk mulai bekerja.</p>
+ <div class="row" style="margin-top:auto"><button class="btn sec" onclick="go('guide')">Kembali</button><span class="sp"></span><button class="btn sec" id="toEnd" onclick="go('end')" disabled>Lihat Hasil</button></div>
+</section>
+
+<section class="scr" id="lvl">
+ <div class="bar"><button class="btn sec" onclick="go('map')">Peta</button><span class="hud" id="l_n"></span><div class="prog"><i id="l_p"></i></div><span class="hud" id="l_l"></span><span class="hud" id="l_s"></span></div>
+ <div id="lbody" style="flex:1;min-height:0;display:flex;flex-direction:column"></div>
+ <div id="fb" role="status"></div>
+ <div class="row" style="margin-top:.8em"><button class="btn sec" id="bPrev" onclick="nav(-1)">Kembali</button><span class="sp"></span><button class="btn" id="bCheck" onclick="doCheck()">Periksa</button><button class="btn" id="bNext" onclick="nav(1)" style="display:none">Berikutnya</button></div>
+</section>
+
+<section class="scr" id="over" style="justify-content:center;align-items:center;text-align:center">
+ <h1>Nyawa habis</h1><p style="margin:.5em 0 1em">Jangan menyerah. Pelajari petunjuknya, lalu coba lagi level ini dengan 3 nyawa baru.</p>
+ <button class="btn" onclick="retry()">Coba Lagi</button>
+</section>
+
+<section class="scr" id="end">
+ <h2>Evaluasi: Hasil Misimu</h2>
+ <div class="cols">
+  <div class="pn"><h3>Skor akhir</h3><div style="font-size:3.6em;font-weight:800" id="e_s"></div><p id="e_r"></p><div id="e_l" style="margin-top:.5em"></div></div>
+  <div class="pn"><h3>Refleksi</h3><ul style="margin:.4em 0 0 1.2em"><li>Level mana yang paling menantang bagimu? Mengapa?</li><li>Bagaimana urutan langkah yang salah memengaruhi hasil program?</li><li>Mengapa data latih yang salah label membuat AI keliru?</li></ul></div>
+ </div>
+ <div class="row" style="margin-top:1em"><button class="btn sec" onclick="go('map')">Kembali</button><span class="sp"></span><button class="btn sec" onclick="reset()">Main Ulang</button><button class="btn" onclick="go('credit')">Berikutnya</button></div>
+</section>
+
+<section class="scr" id="credit">
+ <h2>Informasi Kreator</h2>
+ <div class="pn"><p><b>Kreator:</b> [Tuliskan nama kreator, boleh disertai gelar]</p><p><b>Organisasi:</b> [Tuliskan nama sekolah/institusi]</p><p style="margin-top:.6em"><b>Keterangan aset:</b> Seluruh visual dibuat dengan kode (CSS) oleh pengembang. Efek suara dihasilkan secara sintetis oleh peramban. Tidak ada aset atau tautan eksternal.</p></div>
+ <div class="row" style="margin-top:auto"><button class="btn sec" onclick="go('end')">Kembali</button><span class="sp"></span><button class="btn" onclick="go('home')">Ke Laman Muka</button></div>
+</section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const S={lives:3,score:0,cur:0,done:[0,0,0,0,0],pts:[0,0,0,0,0],err:0,ok:false};
+let AC=null;
+function snd(good){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.connect(g);g.connect(AC.destination);o.frequency.value=good?660:180;o.type=good?'sine':'square';g.gain.value=.06;o.start();o.stop(AC.currentTime+(good?.15:.25));}catch(e){}}
+function fit(){const st=$('stage');st.style.fontSize=(st.clientWidth/1280*16)+'px'}
+addEventListener('resize',fit);fit();
+function go(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');if(id=='map')drawMap();if(id=='end')drawEnd();}
+function hud(){const l='Nyawa: '+'♥'.repeat(S.lives)+'♡'.repeat(3-S.lives);$('m_l').textContent=l;$('l_l').textContent=l;const s='Skor: '+S.score;$('m_s').textContent=s;$('l_s').textContent=s}
+const NAMES=['Algoritma','Tipe Data','Percabangan','Perulangan','Model AI'];
+const BRIEF=['Kasir toko butuh alur transaksi yang benar.','Basis data toko salah mengenali isi kolomnya.','Server panas dan kipas pendingin harus diatur otomatis.','Mesin pengemas harus mengisi jumlah botol yang tepat.','Filter pesan perlu dilatih agar bisa mengenali spam.'];
+function drawMap(){hud();let h='';NAMES.forEach((n,i)=>{const open=i==0||S.done[i-1]||S.done[i];h+=`<button class="lv ${S.done[i]?'done':''}" ${open?'':'disabled'} onclick="openLv(${i})"><b>Level ${i+1}</b><span><b style="font-size:1.1em">${n}</b></span><p style="font-size:1em;margin-top:.3em" class="mu">${BRIEF[i]}</p><p style="font-size:1em"><b>${S.done[i]?'Selesai: '+S.pts[i]+' poin':(open?'Terbuka':'Terkunci')}</b></p></button>`});$('mapg').innerHTML=h;$('toEnd').disabled=!S.done.every(x=>x)}
+function openLv(i){S.cur=i;S.err=0;S.ok=false;if(S.lives<=0)S.lives=3;$('l_n').textContent='Level '+(i+1)+' dari 5';$('l_p').style.width=(i*20)+'%';$('fb').className='';$('fb').style.display='none';$('bNext').style.display=S.done[i]?'':'none';$('bCheck').style.display=S.done[i]?'none':'';$('bPrev').onclick=()=>go('map');LV[i].init();hud();go('lvl')}
+function nav(d){if(S.cur<4)openLv(S.cur+1);else go('end')}
+function say(ok,m){const f=$('fb');f.className=ok?'ok':'no';f.textContent=m;snd(ok)}
+function doCheck(){const r=LV[S.cur].check();if(!r)return;if(r.ok){const p=Math.max(40,100-20*S.err);S.pts[S.cur]=p;S.score=S.pts.reduce((a,b)=>a+b,0);S.done[S.cur]=1;say(true,r.m+' (+'+p+' poin)');$('bCheck').style.display='none';$('bNext').style.display='';$('l_p').style.width=((S.cur+1)*20)+'%'}else{S.err++;S.lives--;say(false,r.m);if(S.lives<=0)setTimeout(()=>go('over'),1400)}hud()}
+function retry(){S.lives=3;openLv(S.cur)}
+function reset(){S.lives=3;S.score=0;S.done=[0,0,0,0,0];S.pts=[0,0,0,0,0];go('map')}
+function drawEnd(){$('e_s').textContent=S.score+' / 500';const k=S.score>=450?'Teknisi Ahli: pemahamanmu sangat kuat.':S.score>=300?'Teknisi Cakap: sudah baik, ulangi level yang masih salah.':'Teknisi Pemula: ayo ulangi level untuk meningkatkan skor.';$('e_r').textContent=k;$('e_l').innerHTML=NAMES.map((n,i)=>`<p>Level ${i+1} ${n}: <b>${S.done[i]?S.pts[i]+' poin':'belum selesai'}</b></p>`).join('')}
+const body=h=>$('lbody').innerHTML=h;
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+
+/* L1 urutan */
+let o1=[];const STEP=['Scan barang belanja','Hitung total harga','Terima uang pembayaran','Hitung kembalian','Cetak struk'];let sh1=[];
+function r1(){body(`<div class="pn" style="flex:1"><h3>Tiket 1: Susun algoritma transaksi kasir</h3><p class="mu" style="margin-bottom:.6em">Ketuk langkah sesuai urutan yang benar, dari yang pertama.</p><div class="cols"><div><h3>Langkah tersedia</h3><div class="grid" style="margin-top:.5em">${sh1.map(i=>`<button class="opt" ${o1.includes(i)?'disabled style="opacity:.35"':''} onclick="o1.push(${i});r1()">${STEP[i]}</button>`).join('')}</div></div><div><h3>Urutanmu</h3><div class="grid" style="margin-top:.5em">${o1.map((x,p)=>`<div class="opt" id="o1_${p}">${p+1}. ${STEP[x]}</div>`).join('')}</div><button class="btn sec" style="margin-top:.7em" onclick="o1=[];r1()">Ulangi</button></div></div></div>`)}
+/* L2 tipe data */
+const D2=[['jumlah_stok = 120','Integer'],['nama_pelanggan = "Sari"','String'],['harga = 15500.50','Float'],['lunas = True','Boolean']],T2=['Integer','String','Float','Boolean'];let a2=[];
+function r2(){body(`<div class="pn" style="flex:1"><h3>Tiket 2: Cocokkan variabel dengan tipe datanya</h3><p class="mu" style="margin-bottom:.6em">Pilih tipe data untuk setiap variabel.</p><div class="grid">${D2.map((d,i)=>`<div class="row"><code style="flex:1.2">${d[0]}</code>${T2.map(t=>`<button class="opt ${a2[i]==t?'sel':''}" id="b${i}${t}" style="flex:1" onclick="a2[${i}]='${t}';r2()">${t}</button>`).join('')}</div>`).join('')}</div></div>`)}
+/* L3 percabangan */
+let sv=25,seen=new Set(),q3=null;
+function st3(t){return t>=35?'Cepat':t>=28?'Pelan':'Mati'}
+function r3(){const s=st3(sv);seen.add(s);const all=seen.size==3;body(`<div class="pn" style="flex:1"><h3>Tiket 3: Atur kipas pendingin server</h3><div class="cols"><div><pre>if suhu &gt;= 35:
+    kipas = "Cepat"
+elif suhu &gt;= 28:
+    kipas = "Pelan"
+else:
+    kipas = "Mati"</pre><p style="margin-top:.6em">Geser suhu sampai kamu pernah melihat ketiga kondisi kipas.</p><input type="range" min="20" max="45" value="${sv}" oninput="sv=+this.value;r3()" aria-label="Suhu"><p><b>Suhu: ${sv} °C</b></p><p class="fan">Kipas: ${s}</p><p>Terlihat: ${['Cepat','Pelan','Mati'].map(x=>(seen.has(x)?'✔ ':'○ ')+x).join('  ')}</p></div><div><h3>Pertanyaan</h3><p style="margin:.4em 0">Jika suhu tepat <b>35</b> °C, kipas berstatus apa?</p><div class="grid">${['Mati','Pelan','Cepat'].map(x=>`<button class="opt ${q3==x?'sel':''}" ${all?'':'disabled'} onclick="q3='${x}';r3()">${x}</button>`).join('')}</div>${all?'':'<p class="mu" style="margin-top:.5em">Pertanyaan terbuka setelah ketiga kondisi terlihat.</p>'}</div></div></div>`)}
+/* L4 perulangan */
+const T4=[6,9,4];let n4=1,t4=0,out4=0;
+function r4(){body(`<div class="pn" style="flex:1"><h3>Tiket 4: Atur perulangan mesin pengemas</h3><p style="margin:.3em 0"><span class="tag">Pesanan ${t4+1} dari 3</span> Isi tepat <b>${T4[t4]}</b> botol.</p><pre>for i in range(${n4}):
+    isi_botol()</pre><div class="row" style="margin:.7em 0"><button class="btn sec" onclick="n4=Math.max(1,n4-1);r4()" aria-label="Kurangi">−</button><span class="hud" style="color:#14212B;background:#DCE6EE">N = ${n4}</span><button class="btn sec" onclick="n4=Math.min(12,n4+1);r4()" aria-label="Tambah">+</button><button class="btn" onclick="run4()">Jalankan Mesin</button></div><div style="min-height:4em">${Array.from({length:12},(_,i)=>`<span class="bt ${i<out4?'f':''}"></span>`).join('')}</div><p><b>Botol terisi: ${out4}</b></p></div>`)}
+function run4(){out4=n4;r4();if(S.done[3])return;if(n4==T4[t4]){if(t4<2){say(true,'Pesanan '+(t4+1)+' tepat. Lanjut pesanan berikutnya.');t4++;out4=0;n4=1;setTimeout(r4,900)}else{out4=n4;r4();doCheck()}}else{say(false,'Mesin mengisi '+n4+' botol, padahal pesanan '+T4[t4]+'. Ubah nilai N pada range(N).');S.err++;S.lives--;hud();if(S.lives<=0)setTimeout(()=>go('over'),1400)}}
+/* L5 klasifikasi */
+const M5=[['Selamat! Anda menang undian Rp50 juta, klik link ini',1],['Rapat tim praktikum jam 10 di Lab TKJ',0],['Pinjaman cepat tanpa syarat, transfer sekarang',1],['Tugas koding sudah dikumpulkan, terima kasih',0],['Dapatkan hadiah gratis, kirim kode OTP kamu',1],['Jadwal servis jaringan besok pukul 08.00',0]];let a5=[];
+function r5(){body(`<div class="pn" style="flex:1"><h3>Tiket 5: Beri label data latih untuk filter spam</h3><p class="mu" style="margin-bottom:.6em">Model AI belajar dari contoh yang sudah diberi label. Beri label yang benar pada setiap pesan.</p><div class="grid">${M5.map((m,i)=>`<div class="row"><div class="opt" style="flex:2.5;cursor:default">${m[0]}</div><button class="opt ${a5[i]===1?'sel':''}" style="flex:1" onclick="a5[${i}]=1;r5()">Spam</button><button class="opt ${a5[i]===0?'sel':''}" style="flex:1" onclick="a5[${i}]=0;r5()">Bukan spam</button></div>`).join('')}</div></div>`)}
+
+const LV=[
+{init(){o1=[];sh1=shuf([0,1,2,3,4]);r1()},check(){if(o1.length<5)return{ok:false,m:'Urutanmu belum lengkap. Susun kelima langkah dulu.'};const w=o1.filter((x,i)=>x!=i).length;if(!w)return{ok:true,m:'Tepat! Alur transaksi sudah benar.'};const f=o1.findIndex((x,i)=>x!=i);return{ok:false,m:'Belum tepat. Langkah ke-'+(f+1)+' keliru. Pikirkan apa yang harus terjadi lebih dulu.'};}},
+{init(){a2=[];r2()},check(){if(a2.filter(Boolean).length<4)return{ok:false,m:'Pilih tipe data untuk keempat variabel.'};const w=D2.filter((d,i)=>a2[i]!=d[1]);if(!w.length)return{ok:true,m:'Benar! Angka bulat, teks, desimal, dan benar/salah sudah tepat.'};return{ok:false,m:'Masih keliru pada: '+w.map(d=>d[0].split(' ')[0]).join(', ')+'. Ingat: teks memakai tanda kutip, desimal memakai titik.'}}},
+{init(){sv=25;seen=new Set();q3=null;r3()},check(){if(seen.size<3)return{ok:false,m:'Geser suhu dulu sampai ketiga kondisi kipas terlihat.'};if(!q3)return{ok:false,m:'Pilih jawaban pertanyaannya.'};if(q3=='Cepat')return{ok:true,m:'Benar! Tanda >= berarti 35 sudah termasuk kondisi pertama.'};return{ok:false,m:'Belum tepat. Cek lagi tanda >= pada kondisi pertama: apakah 35 memenuhinya?'}}},
+{init(){n4=1;t4=0;out4=0;r4()},check(){return{ok:true,m:'Hebat! Ketiga pesanan terpenuhi. range(N) mengulang tepat N kali.'}}},
+{init(){a5=[];r5()},check(){if(a5.filter(x=>x===0||x===1).length<6)return{ok:false,m:'Beri label pada keenam pesan.'};const w=M5.filter((m,i)=>a5[i]!==m[1]).length;if(!w)return{ok:true,m:'Sempurna! Data berlabel benar membuat model belajar dengan baik.'};return{ok:false,m:w+' pesan salah label. Pesan penipuan biasanya menjanjikan hadiah, meminta OTP, atau mendesak transfer.'}}}
+];
+// perbaikan: LV[3] hanya dipanggil setelah pesanan ke-3 benar
+$('bPrev').onclick=()=>go('map');
+</script></body></html>
